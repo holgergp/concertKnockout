@@ -1,15 +1,206 @@
-<!Doctype html>
-<html>
+<!doctype html>
+<html class="no-js">
 <head>
-  <meta charset="utf-8">
-  <title>An awesome knockout.js app</title>
-  <script data-main="app/config" src="bower_components/requirejs/require.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <script data-main="app/config" src="bower_components/requirejs/require.js"></script>
 </head>
 <body>
-  <h1>concertKnockout running!</h1>
-  <div>
-      Data Binding: 
-      <span class="status" data-bind="text: status">Inactive</span>
-  </div>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<div class="container-fluid">
+    <div class="header">
+        <!--    <h1>concertKnockout running!</h1>
+            <div>
+                Data Binding:
+                <span class="status" data-bind="text: status">Inactive</span>
+            </div>-->
+        <h3 class="text-muted">Welche Konzerte stehen an?</h3>
+    </div>
+    <!--Fixme hgp includes-->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+
+
+                <div class="panel panel-primary" data-drop="true" ng-model='loveConcerts' jqyoui-droppable>
+                    <div class="panel-heading">Muss ich hin!</div>
+                    <div class="panel-body">
+                        <section id="loveConcertSection">
+                            <div data-bind="foreach: loveConcerts">
+
+                                <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
+                                     data-drag="true"
+                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="loveConcerts"
+                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
+                                     ng-hide="!concert.artist">
+                                    <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs"
+                                         ng-class="alertClass(concert)">
+                                        <!--ko text: artist--><!--/ko-->-
+                                        -
+                                        <!--ko text: venue--><!--/ko-->-
+                                        <!--ko text: formattedDate--><!--/ko-->
+
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 col-sm-2">
+                                        <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
+                                                ng-click="removeConcert(loveConcerts,concert)"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-warning" data-drop="true" ng-model='allConcerts' jqyoui-droppable>
+                    <div class="panel-heading">Alle Konzerte</div>
+                    <div class="panel-body">
+                        <section id="allConcertSection">
+                            <div data-bind="foreach: allConcerts">
+
+
+                                <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
+                                     data-drag="true"
+                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="allConcerts"
+                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
+                                     ng-hide="!concert.artist">
+                                    <div class="col-md-10 col-lg-10 col-sm-10" ng-class="alertClass(concert)">
+                                        <div class="btn btn-xs">
+                                            <!--ko text: artist--><!--/ko-->-
+                                            -
+                                            <!--ko text: venue--><!--/ko-->-
+                                            <!--ko text: formattedDate--><!--/ko-->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 col-sm-2">
+                                        <div class="btn btn-xs btn-danger glyphicon glyphicon-remove"
+                                             ng-click="removeConcert(allConcerts,concert)"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-success" data-drop="true" ng-model='maybeConcerts' jqyoui-droppable>
+                    <div class="panel-heading">Mal schauen!</div>
+                    <div class="panel-body">
+                        <section id="maybeConcertSection">
+                            <div data-bind="foreach: maybeConcerts">
+
+                                <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
+                                     data-drag="true"
+                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="maybeConcerts"
+                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
+                                     ng-hide="!concert.artist">
+                                    <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs"
+                                         ng-class="alertClass(concert)">
+                                        <!--ko text: artist--><!--/ko-->-
+                                        -
+                                        <!--ko text: venue--><!--/ko-->-
+                                        <!--ko text: formattedDate--><!--/ko-->
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 col-sm-2">
+                                        <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
+                                                ng-click="removeConcert(maybeConcerts,concert)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <section id="newConcertSection">
+                        <form name="addConcertForm" novalidate class="form-inline" role="form">
+                            <div class="form-group">
+                                <label class="sr-only">Artist</label>
+                                <input type="text" name="artist" data-bind="value: artist"
+                                       placeholder="Künstler"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only">Ort</label>
+                                <input type="text" name="venue" data-bind="value: venue" placeholder="Ort"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only">Datum</label>
+                                <input type="datetime" name="date" data-bind="value: formattedDate"
+                                       placeholder="Datum" required>
+                            </div>
+                            <button ng-click="addConcert()" ng-disabled="addConcertForm.$invalid"
+                                    class="btn btn-success glyphicon glyphicon-plus"
+                                    type="submit"></button>
+                        </form>
+                    </section>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="footer">
+         <span>
+        <i class="fa fa-github"></i>
+    </span>
+    <span>
+        <a href="https://github.com/holgergp/concertKnockout">https://github.com/holgergp/concertKnockout</a>
+    </span>
+        <span>
+        <i class="fa fa-compass"></i>
+    </span>
+    <span>
+        <a href="http://www.grosse-plankermann.com">http://www.grosse-plankermann.com</a>
+    </span>
+
+
+    </div>
+
+</div>
+
+
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+
+<![endif]-->
+<!-- endbuild -->
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+<!-- endbuild -->
 </body>
 </html>
+
