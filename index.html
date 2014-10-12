@@ -52,7 +52,7 @@
                                      jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
                                      ng-hide="!concert.artist">
                                     <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs"
-                                         ng-class="alertClass(concert)">
+                                         data-bind="css: alertClass">
                                         <!--ko text: artist--><!--/ko-->-
                                         -
                                         <!--ko text: venue--><!--/ko-->-
@@ -85,7 +85,7 @@
                                      data-jqyoui-options="{revert: 'invalid'}" ng-model="allConcerts"
                                      jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
                                      ng-hide="!concert.artist">
-                                    <div class="col-md-10 col-lg-10 col-sm-10" ng-class="alertClass(concert)">
+                                    <div class="col-md-10 col-lg-10 col-sm-10" data-bind="css: alertClass">
                                         <div class="btn btn-xs">
                                             <!--ko text: artist--><!--/ko-->-
                                             -
@@ -117,8 +117,8 @@
                                      data-jqyoui-options="{revert: 'invalid'}" ng-model="maybeConcerts"
                                      jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
                                      ng-hide="!concert.artist">
-                                    <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs"
-                                         ng-class="alertClass(concert)">
+                                    <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs" data-bind="css: alertClass"
+                                   >
                                         <!--ko text: artist--><!--/ko-->-
                                         -
                                         <!--ko text: venue--><!--/ko-->-

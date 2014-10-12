@@ -15,6 +15,10 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
             "use strict";
             return moment(self.date).format('DD.MM.YYYY');
         });
+        self.alertClass = ko.computed(function () {
+            return new ConcertDueDateClassProvider().getCssClass(self.date);
+
+        });
 
 
         self.loveConcerts = ko.observableArray([
@@ -22,7 +26,8 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
                 artist: self.artist,
                 venue: self.venue,
                 date: self.date,
-                formattedDate: self.formattedDate
+                formattedDate: self.formattedDate,
+                alertClass: self.alertClass
             }
 
         ])
@@ -48,6 +53,10 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
             "use strict";
             return moment(self.date).format('DD.MM.YYYY');
         });
+        self.alertClass = ko.computed(function () {
+            return new ConcertDueDateClassProvider().getCssClass(self.date);
+
+        });
 
 
         self.allConcerts = ko.observableArray([
@@ -55,7 +64,8 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
                 artist: self.artist,
                 venue: self.venue,
                 date: self.date,
-                formattedDate: self.formattedDate
+                formattedDate: self.formattedDate,
+                alertClass: self.alertClass
             }
 
         ])
@@ -80,18 +90,23 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
             "use strict";
             return moment(self.date).format('DD.MM.YYYY');
         });
+        self.alertClass = ko.computed(function () {
+            return new ConcertDueDateClassProvider().getCssClass(self.date);
 
+        });
 
         self.maybeConcerts = ko.observableArray([
             {
                 artist: self.artist,
                 venue: self.venue,
                 date: self.date,
-                formattedDate: self.formattedDate
+                formattedDate: self.formattedDate,
+                alertClass: self.alertClass
             }
 
         ])
         ;
+
 
         self.removeConcert = function (concert) {
 
@@ -100,31 +115,6 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         };
     }
 
-
-    function ViewModel() {
-
-        var self = this;
-
-
-        self.alertClass = function (concert) {
-            if (concertDueDateService.isConcertAboutToHappen(concert)) {
-                return 'bg-warning';
-            }
-            else if (concertDueDateService.isConcertOverdue(concert)) {
-                return 'bg-danger';
-            }
-            else {
-                return 'bg-primary';
-            }
-
-        };
-
-        self.formatDate = function (date) {
-            return concertDueDateService.formatDate(date);
-        };
-
-        self.status = ko.observable('active');
-    }
 
     var allConcertsViewModel = new AllConcerts();
 
@@ -153,6 +143,11 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
                 "use strict";
                 return moment(dateString).format('DD.MM.YYYY');
             });
+            self.alertClass = ko.computed(function () {
+                return new ConcertDueDateClassProvider().getCssClass(self.date());
+
+            });
+
 
         }
 
@@ -163,8 +158,46 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
             self.venue("");
             self.dateString(moment().format('DD.MM.YYYY'));
 
+
         };
     }
+
+
+    function ConcertDuedateService() {
+        "use strict";
+
+        var self = this;
+        self.isConcertOverdue = function (date) {
+            return  moment(date).isBefore(moment());
+        };
+
+        self.isConcertAboutToHappen = function (date) {
+            return moment().add(15, 'days').isAfter(moment(date)) && !self.isConcertOverdue(date);
+        };
+
+        self.isConcertDateFine = function (date) {
+            return  !self.isConcertAboutToHappen(daemon) && !self.isConcertOverdue(date);
+        };
+
+    }
+
+    function ConcertDueDateClassProvider() {
+        "use strict";
+        var self = this;
+        self.getCssClass = function (date) {
+            var concertDueDateService = new ConcertDuedateService();
+            if (concertDueDateService.isConcertAboutToHappen(date)) {
+                return 'bg-warning';
+            }
+            else if (concertDueDateService.isConcertOverdue(date)) {
+                return 'bg-danger';
+            }
+            else {
+                return 'bg-primary';
+            }
+        };
+    }
+
 
 //ko.applyBindings(new ViewModel(), $('html')[0]);
     ko.applyBindings(new NewConcertViewModel(), $('#newConcertSection')[0]);
