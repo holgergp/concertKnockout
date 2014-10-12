@@ -3,19 +3,6 @@
 
 define(["jquery", "knockout", "moment"], function ($, ko, moment) {
 
-    function NewConcert() {
-
-        var self = this;
-
-
-        self.artist = ko.observable();
-        self.venue = ko.observable();
-        self.date = ko.observable(moment());
-        self.formattedDate = ko.computed(function () {
-            moment(self.date).format('DD.MM.YYYY');
-        });
-    }
-
 
     function LoveConcerts() {
 
@@ -26,7 +13,7 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         self.date = moment();
         self.formattedDate = ko.computed(function () {
             "use strict";
-            moment(self.date).format('DD.MM.YYYY');
+            return moment(self.date).format('DD.MM.YYYY');
         });
 
 
@@ -53,7 +40,7 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         self.date = moment();
         self.formattedDate = ko.computed(function () {
             "use strict";
-            moment(self.date).format('DD.MM.YYYY');
+            return moment(self.date).format('DD.MM.YYYY');
         });
 
 
@@ -80,7 +67,7 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         self.date = moment();
         self.formattedDate = ko.computed(function () {
             "use strict";
-            moment(self.date).format('DD.MM.YYYY');
+            return moment(self.date).format('DD.MM.YYYY');
         });
 
 
@@ -102,15 +89,6 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
     function ViewModel() {
 
         var self = this;
-
-        self.addConcert = function () {
-            self.allConcerts.push(newConcert);
-            self.newConcert = {
-                artist: '',
-                venue: '',
-                date: moment().format('L')
-            };
-        };
 
 
         self.removeConcert = function (array, concert) {
@@ -142,12 +120,48 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         self.status = ko.observable('active');
     }
 
+    var allConcertsViewModel = new AllConcerts();
+
+
     ko.applyBindings(new LoveConcerts(), $('#loveConcertSection')[0]);
-    ko.applyBindings(new AllConcerts(), $('#allConcertSection')[0]);
+    ko.applyBindings(allConcertsViewModel, $('#allConcertSection')[0]);
     ko.applyBindings(new MaybeConcerts(), $('#maybeConcertSection')[0]);
 
+    function NewConcertViewModel() {
+
+        var self = this;
+
+
+        self.artist = ko.observable();
+        self.venue = ko.observable();
+        self.dateString = ko.observable(moment().format('DD.MM.YYYY'));
+
+
+        function NewConcert(artist, venue, dateString) {
+            "use strict";
+            var self = this;
+            self.artist = ko.observable(artist);
+            self.venue = ko.observable(venue);
+            self.date = ko.observable(moment(dateString));
+            self.formattedDate = ko.computed(function () {
+                "use strict";
+                return moment(dateString).format('DD.MM.YYYY');
+            });
+
+        }
+
+
+        self.addConcert = function () {
+            allConcertsViewModel.allConcerts.push(new NewConcert(self.artist(), self.venue(), self.dateString()));
+            self.artist("");
+            self.venue("");
+            self.dateString(moment().format('DD.MM.YYYY'));
+
+        };
+    }
+
 //ko.applyBindings(new ViewModel(), $('html')[0]);
-    ko.applyBindings(new NewConcert(), $('#newConcertSection')[0]);
+    ko.applyBindings(new NewConcertViewModel(), $('#newConcertSection')[0]);
 
     /*
      * read-only date display with momentjs
