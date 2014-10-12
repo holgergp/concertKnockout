@@ -28,6 +28,12 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         ])
         ;
 
+        self.removeConcert = function (concert) {
+
+            self.loveConcerts.remove(concert);
+
+        };
+
 
     }
 
@@ -54,6 +60,11 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
 
         ])
         ;
+        self.removeConcert = function (concert) {
+
+            self.allConcerts.remove(concert);
+
+        };
 
 
     }
@@ -82,7 +93,11 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         ])
         ;
 
+        self.removeConcert = function (concert) {
 
+            self.maybeConcerts.remove(concert);
+
+        };
     }
 
 
@@ -90,15 +105,6 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
 
         var self = this;
 
-
-        self.removeConcert = function (array, concert) {
-
-            var i = array.indexOf(concert);
-            if (i !== -1) {
-                array.splice(i, 1);
-            }
-
-        };
 
         self.alertClass = function (concert) {
             if (concertDueDateService.isConcertAboutToHappen(concert)) {

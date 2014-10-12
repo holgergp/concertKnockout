@@ -62,7 +62,7 @@
 
                                     <div class="col-md-2 col-lg-2 col-sm-2">
                                         <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
-                                                ng-click="removeConcert(loveConcerts,concert)"></button>
+                                                data-bind="click: $parent.removeConcert"></button>
                                     </div>
                                 </div>
 
@@ -96,7 +96,7 @@
 
                                     <div class="col-md-2 col-lg-2 col-sm-2">
                                         <div class="btn btn-xs btn-danger glyphicon glyphicon-remove"
-                                             ng-click="removeConcert(allConcerts,concert)"></div>
+                                             data-bind="click: $parent.removeConcert"></div>
                                     </div>
                                 </div>
 
@@ -127,7 +127,7 @@
 
                                     <div class="col-md-2 col-lg-2 col-sm-2">
                                         <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
-                                                ng-click="removeConcert(maybeConcerts,concert)"></button>
+                                                data-bind="click: $parent.removeConcert"></button>
                                     </div>
                                 </div>
                             </div>
