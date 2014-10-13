@@ -1,7 +1,7 @@
 // to depend on a bower installed component:
 // define(['component/componentName/file'])
 
-define(["jquery", "knockout", "moment", 'moment_de'], function ($, ko, moment) {
+define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], function ($, ko, _, moment) {
 
     function LoveConcerts() {
 
@@ -153,12 +153,15 @@ define(["jquery", "knockout", "moment", 'moment_de'], function ($, ko, moment) {
 
 
         self.addConcert = function () {
-            allConcertsViewModel.allConcerts.push(new NewConcert(self.artist(), self.venue(), self.dateString()));
-            self.artist("");
-            self.venue("");
-            self.dateString(moment().format('DD.MM.YYYY'));
 
+            if (!_.isBlank(self.artist()) && !_.isBlank(self.venue()) && !_.isBlank(self.dateString())) {
 
+                allConcertsViewModel.allConcerts.push(new NewConcert(self.artist(), self.venue(), self.dateString()));
+                self.artist("");
+                self.venue("");
+                self.dateString(moment().format('DD.MM.YYYY'));
+
+            }
         };
     }
 

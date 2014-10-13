@@ -5,7 +5,17 @@ require.config({
         "bower_components": "../bower_components",
         "jquery": "../bower_components/jquery/dist/jquery",
         "moment": "../bower_components/moment/moment",
-        'moment_de': '../bower_components/moment/locale/de'
+        'moment_de': '../bower_components/moment/locale/de',
+        'lodash': '../bower_components/lodash/dist/lodash',
+        'underscore.string':'../bower_components/underscore.string/lib/underscore.string'
+    },
+    shim: {
+        'lodash': {
+            exports: '_'
+        },
+        'underscore-string': {
+            deps: ['lodash'],
+        }
     },
     map: {
         "*": {
