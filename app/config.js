@@ -4,7 +4,8 @@ require.config({
     paths: {
         "bower_components": "../bower_components",
         "jquery": "../bower_components/jquery/dist/jquery",
-        "moment": "../bower_components/moment/moment"
+        "moment": "../bower_components/moment/moment",
+        'moment_de': '../bower_components/moment/locale/de'
     },
     map: {
         "*": {

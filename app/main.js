@@ -1,8 +1,7 @@
 // to depend on a bower installed component:
 // define(['component/componentName/file'])
 
-define(["jquery", "knockout", "moment"], function ($, ko, moment) {
-
+define(["jquery", "knockout", "moment", 'moment_de'], function ($, ko, moment) {
 
     function LoveConcerts() {
 
@@ -138,10 +137,11 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
             var self = this;
             self.artist = ko.observable(artist);
             self.venue = ko.observable(venue);
-            self.date = ko.observable(moment(dateString));
+            self.date = ko.observable(moment(dateString, "DD.MM.YYYY"));
             self.formattedDate = ko.computed(function () {
-                "use strict";
-                return moment(dateString).format('DD.MM.YYYY');
+
+
+                return moment(dateString, "DD.MM.YYYY").format('DD.MM.YYYY');
             });
             self.alertClass = ko.computed(function () {
                 return new ConcertDueDateClassProvider().getCssClass(self.date());
@@ -176,7 +176,7 @@ define(["jquery", "knockout", "moment"], function ($, ko, moment) {
         };
 
         self.isConcertDateFine = function (date) {
-            return  !self.isConcertAboutToHappen(daemon) && !self.isConcertOverdue(date);
+            return  !self.isConcertAboutToHappen(date) && !self.isConcertOverdue(date);
         };
 
     }
