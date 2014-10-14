@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/holgergp/concertKnockout.svg?branch=master)](https://travis-ci.org/holgergp/concertKnockout)
 # concertKnockout
 
-An awesome knockout.js app
+Demo application to compare various client side mvc approaches. Using Knockout.js
 
 ## Getting Started
 
