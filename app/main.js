@@ -1,7 +1,7 @@
 // to depend on a bower installed component:
 // define(['component/componentName/file'])
 
-define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'moment_de'], function ($, ko, _,knockoutdnd, moment) {
+define(["jquery", "knockout", "underscore.string", "knockoutdnd", "moment", 'moment_de'], function ($, ko, _, knockoutdnd, moment) {
 
     function LoveConcerts() {
 
@@ -38,10 +38,9 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'mome
 
         };
         self.drop = function (data, model) {
-            console.log("da");
-        };
-        self.drag = function (data, model) {
-            console.log("drag");
+            model.loveConcerts.push(data);
+            maybeConcertsViewModel.removeConcert(data);
+            allConcertsViewModel.removeConcert(data);
         };
 
     }
@@ -82,7 +81,9 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'mome
 
 
         self.drop = function (data, model) {
-            console.log("da");
+            model.allConcerts.push(data);
+            maybeConcertsViewModel.removeConcert(data);
+            loveConcertsViewModel.removeConcert(data);
         };
     }
 
@@ -123,17 +124,20 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'mome
         };
 
         self.drop = function (data, model) {
-            console.log("da");
+            model.maybeConcerts.push(data);
+            allConcertsViewModel.removeConcert(data);
+            loveConcertsViewModel.removeConcert(data);
         };
     }
 
 
     var allConcertsViewModel = new AllConcerts();
+    var loveConcertsViewModel = new LoveConcerts();
+    var maybeConcertsViewModel = new MaybeConcerts();
 
-
-    ko.applyBindings(new LoveConcerts(), $('#loveConcertSection')[0]);
+    ko.applyBindings(loveConcertsViewModel, $('#loveConcertSection')[0]);
     ko.applyBindings(allConcertsViewModel, $('#allConcertSection')[0]);
-    ko.applyBindings(new MaybeConcerts(), $('#maybeConcertSection')[0]);
+    ko.applyBindings(maybeConcertsViewModel, $('#maybeConcertSection')[0]);
 
     function NewConcertViewModel() {
 
@@ -184,7 +188,7 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'mome
 
         var self = this;
         self.isConcertOverdue = function (date) {
-            return  moment(date).isBefore(moment());
+            return moment(date).diff(moment(),'days')<0;
         };
 
         self.isConcertAboutToHappen = function (date) {
@@ -224,7 +228,7 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'mome
      * The "format" is optional and will default to "MM/DD/YYYY"
      */
     /**
-    ko.bindingHandlers.moment = {
+     ko.bindingHandlers.moment = {
         update: function (element, valueAccessor, allBindingsAccessor
                           //              ,viewModel
             ) {
