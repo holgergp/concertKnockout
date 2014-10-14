@@ -1,7 +1,7 @@
 // to depend on a bower installed component:
 // define(['component/componentName/file'])
 
-define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], function ($, ko, _, moment) {
+define(["jquery", "knockout", "underscore.string", "knockoutdnd","moment", 'moment_de'], function ($, ko, _,knockoutdnd, moment) {
 
     function LoveConcerts() {
 
@@ -37,7 +37,12 @@ define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], funct
             self.loveConcerts.remove(concert);
 
         };
-
+        self.drop = function (data, model) {
+            console.log("da");
+        };
+        self.drag = function (data, model) {
+            console.log("drag");
+        };
 
     }
 
@@ -76,7 +81,11 @@ define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], funct
         };
 
 
+        self.drop = function (data, model) {
+            console.log("da");
+        };
     }
+
 
     function MaybeConcerts() {
 
@@ -111,6 +120,10 @@ define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], funct
 
             self.maybeConcerts.remove(concert);
 
+        };
+
+        self.drop = function (data, model) {
+            console.log("da");
         };
     }
 
@@ -210,8 +223,11 @@ define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], funct
      * use like this: data-bind="moment: dateVar, format: 'YYYY-MM-DD'"
      * The "format" is optional and will default to "MM/DD/YYYY"
      */
+    /**
     ko.bindingHandlers.moment = {
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        update: function (element, valueAccessor, allBindingsAccessor
+                          //              ,viewModel
+            ) {
             var val = valueAccessor();
 
             var formatted = '**INVALID**'; // throw instead?
@@ -225,6 +241,8 @@ define(["jquery", "knockout", "underscore.string", "moment", 'moment_de'], funct
 
             element.innerText = formatted;
         }
-    };
+    };**/
+
+
 })
 ;

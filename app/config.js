@@ -7,20 +7,21 @@ require.config({
         "moment": "../bower_components/moment/moment",
         'moment_de': '../bower_components/moment/locale/de',
         'lodash': '../bower_components/lodash/dist/lodash',
-        'underscore.string':'../bower_components/underscore.string/lib/underscore.string'
+        'underscore.string':'../bower_components/underscore.string/lib/underscore.string',
+        'knockoutdnd':'../node_modules/knockout-dragdrop/lib/knockout.dragdrop'
     },
     shim: {
         'lodash': {
             exports: '_'
         },
         'underscore-string': {
-            deps: ['lodash'],
+            deps: ['lodash']
         }
     },
     map: {
         "*": {
             "knockout": "../bower_components/knockout.js/knockout",
-            "ko": "../bower_components/knockout.js/knockout",
+            "ko": "../bower_components/knockout.js/knockout"
 
         }
     }

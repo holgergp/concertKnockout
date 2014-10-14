@@ -37,22 +37,23 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" id="loveConcertSection">
 
 
-                <div class="panel panel-primary" data-drop="true" ng-model='loveConcerts' jqyoui-droppable>
-                    <div class="panel-heading">Muss ich hin!</div>
+                <div class="panel panel-primary " data-bind="dropZone: { accepts:['allList','maybeList'], drop: drop }" >
+                    <div class="panel-heading">Muss ich
+                        hin!
+                    </div>
                     <div class="panel-body">
-                        <section id="loveConcertSection">
-                            <div data-bind="foreach: loveConcerts">
+
+                            <div  data-bind="foreach: loveConcerts">
 
                                 <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
-                                     data-drag="true"
-                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="loveConcerts"
-                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
-                                     ng-hide="!concert.artist">
+                                     data-bind="dragZone: { name: 'loveList' }"
+                                        >
                                     <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs"
-                                         data-bind="css: alertClass">
+                                         data-bind="css: alertClass
+                                    ">
                                         <!--ko text: artist--><!--/ko-->-
                                         -
                                         <!--ko text: venue--><!--/ko-->-
@@ -67,24 +68,21 @@
                                 </div>
 
                             </div>
-                        </section>
+
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="panel panel-warning" data-drop="true" ng-model='allConcerts' jqyoui-droppable>
+            <div class="col-md-4" id="allConcertSection">
+                <div class="panel panel-warning" data-bind="dropZone: { accepts:['loveList','maybeList'],drop: drop }">
                     <div class="panel-heading">Alle Konzerte</div>
                     <div class="panel-body">
-                        <section id="allConcertSection">
                             <div data-bind="foreach: allConcerts">
 
 
                                 <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
                                      data-drag="true"
-                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="allConcerts"
-                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
-                                     ng-hide="!concert.artist">
+                                     data-bind="dragZone: { name: 'allList' }">
                                     <div class="col-md-10 col-lg-10 col-sm-10" data-bind="css: alertClass">
                                         <div class="btn btn-xs">
                                             <!--ko text: artist--><!--/ko-->-
@@ -101,24 +99,23 @@
                                 </div>
 
                             </div>
-                        </section>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-success" data-drop="true" ng-model='maybeConcerts' jqyoui-droppable>
+            <div class="col-md-4"  id="maybeConcertSection">
+                <div class="panel panel-success" data-drop="true" data-bind="dropZone: { accepts:['loveList','allList'],drop: drop }">
                     <div class="panel-heading">Mal schauen!</div>
                     <div class="panel-body">
-                        <section id="maybeConcertSection">
                             <div data-bind="foreach: maybeConcerts">
 
+
                                 <div class="col-md-12 btn btn-xs" style="cursor: pointer;"
-                                     data-drag="true"
-                                     data-jqyoui-options="{revert: 'invalid'}" ng-model="maybeConcerts"
-                                     jqyoui-draggable="{index: {{$index}},animate:true,placeholder:true}"
-                                     ng-hide="!concert.artist">
+                                data-drag="true"
+
+
+                                data-bind="dragZone: { name: 'maybeList' }">
                                     <div class="col-md-10 col-lg-10 col-sm-10 btn btn-xs" data-bind="css: alertClass"
-                                   >
+                                    >
                                         <!--ko text: artist--><!--/ko-->-
                                         -
                                         <!--ko text: venue--><!--/ko-->-
@@ -127,11 +124,10 @@
 
                                     <div class="col-md-2 col-lg-2 col-sm-2">
                                         <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
-                                                data-bind="click: $parent.removeConcert"></button>
+                                        data-bind="click: $parent.removeConcert"></button>
                                     </div>
                                 </div>
                             </div>
-                        </section>
                     </div>
                 </div>
             </div>
@@ -142,23 +138,23 @@
                             <div class="form-group">
                                 <label class="sr-only">Artist</label>
                                 <input type="text" name="artist" data-bind="value: artist"
-                                       placeholder="Künstler"
-                                       required>
+                                placeholder="Künstler"
+                                required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Ort</label>
                                 <input type="text" name="venue" data-bind="value: venue" placeholder="Ort"
-                                       required>
+                                required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Datum</label>
                                 <input type="datetime" name="date" data-bind="value: dateString"
-                                       placeholder="Datum" required>
+                                placeholder="Datum" required>
                             </div>
                             <button ng-click="addConcert()" ng-disabled="addConcertForm.$invalid"
-                                    class="btn btn-success glyphicon glyphicon-plus"
-                                    data-bind="click: addConcert"
-                                    ></button>
+                            class="btn btn-success glyphicon glyphicon-plus"
+                            data-bind="click: addConcert"
+                            ></button>
                         </form>
                     </section>
                 </div>
@@ -187,10 +183,10 @@
 </div>
 
 
-<!-- build:js(.) scripts/oldieshim.js -->
 <!--[if lt IE 9]>
 
 <![endif]-->
+<!-- build:js(.) scripts/oldieshim.js -->
 <!-- endbuild -->
 
 <!-- build:js(.) scripts/vendor.js -->
@@ -202,6 +198,7 @@
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 
 <!-- endbuild -->
+
 </body>
 </html>
 
