@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/holgergp/concertKnockout.svg?branch=master)](https://travis-ci.org/holgergp/concertKnockout)
+
 # concertKnockout
 
 An awesome knockout.js app
