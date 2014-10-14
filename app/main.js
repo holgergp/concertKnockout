@@ -188,7 +188,7 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd", "moment", 'mom
 
         var self = this;
         self.isConcertOverdue = function (date) {
-            return moment(date).diff(moment(),'days')<0;
+            return moment(date).diff(moment(), 'days') < 0;
         };
 
         self.isConcertAboutToHappen = function (date) {
@@ -219,34 +219,12 @@ define(["jquery", "knockout", "underscore.string", "knockoutdnd", "moment", 'mom
     }
 
 
-//ko.applyBindings(new ViewModel(), $('html')[0]);
     ko.applyBindings(new NewConcertViewModel(), $('#newConcertSection')[0]);
 
-    /*
-     * read-only date display with momentjs
-     * use like this: data-bind="moment: dateVar, format: 'YYYY-MM-DD'"
-     * The "format" is optional and will default to "MM/DD/YYYY"
-     */
+
     /**
-     ko.bindingHandlers.moment = {
-        update: function (element, valueAccessor, allBindingsAccessor
-                          //              ,viewModel
-            ) {
-            var val = valueAccessor();
-
-            var formatted = '**INVALID**'; // throw instead?
-            var date = moment(ko.utils.unwrapObservable(val));
-
-            var format = allBindingsAccessor().format || 'MM.DD.YYYY';
-
-            if (date && date.isValid()) {
-                formatted = date.format(format);
-            }
-
-            element.innerText = formatted;
-        }
-    };**/
-
-
+     * Return as much as you need (for testing purposes)
+     */
+    return  {loveConcertsViewModel: loveConcertsViewModel};
 })
 ;
