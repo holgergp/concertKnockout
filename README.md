@@ -3,6 +3,7 @@
 
 Demo application to compare various client side mvc approaches. Using Knockout.js
 
+Scaffolding done using Yeoman and the [Knockout Generator] (https://github.com/bmac/generator-knockout) 
 ## Getting Started
 
 Make sure you have the latest packages installed
